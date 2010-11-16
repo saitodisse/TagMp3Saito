@@ -1,0 +1,133 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="8291" fromTop="16" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.Designer.cs" caret="10749" fromTop="16" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:StringTools.cs" caret="1323" fromTop="5" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:App.config" caret="0" fromTop="0" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/d:ReflectHelp/f:PropertiesListTest.cs" caret="704" fromTop="21" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Music.cs" caret="7188" fromTop="26" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12147" fromTop="35" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="19" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="17" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="10" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Music.cs" caret="8639" fromTop="20" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Music.cs" caret="8639" fromTop="16" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="21" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="21" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="24" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="20" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.Designer.cs" caret="10749" fromTop="15" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="26" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="22" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12166" fromTop="2" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="11627" fromTop="21" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="11066" fromTop="14" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="2294" fromTop="8" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="8101" fromTop="8" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="10043" fromTop="28" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="4520" fromTop="6" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="5787" fromTop="12" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="6240" fromTop="30" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="1705" fromTop="6" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="1912" fromTop="6" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="10854" fromTop="16" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="2640" fromTop="12" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="10557" fromTop="6" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12147" fromTop="26" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12147" fromTop="20" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="11820" fromTop="28" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12147" fromTop="20" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir>C:\Program Files\NUnit 2.5.2\bin\net-2.0\</NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="const" priority="0" />
+      <Item value="textBox_CSV_FilePath" priority="3" />
+      <Item value="public" priority="0" />
+      <Item value="static" priority="0" />
+      <Item value="class" priority="0" />
+      <Item value="DateTime`0" priority="0" />
+      <Item value="String`0" priority="0" />
+      <Item value="ano" priority="0" />
+      <Item value="mes" priority="0" />
+      <Item value="dia" priority="0" />
+      <Item value="hora" priority="0" />
+      <Item value="minuto" priority="0" />
+      <Item value="segundo" priority="0" />
+      <Item value="StringTools`0" priority="0" />
+      <Item value="File`0" priority="5" />
+      <Item value="return" priority="1" />
+      <Item value="FileInfo`0" priority="2" />
+      <Item value="new" priority="5" />
+      <Item value="FileInfo" priority="3" />
+      <Item value="FileSecurity" priority="0" />
+      <Item value="FileSystemAccessRule" priority="0" />
+      <Item value="false" priority="0" />
+      <Item value="openFileDialog_CsvFile" priority="0" />
+      <Item value="buttonOpenCsvFile" priority="0" />
+      <Item value="e" priority="0" />
+      <Item value="if" priority="4" />
+      <Item value="else" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.TextBox">
+      <Item value="Text" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Now" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.DateTime">
+      <Item value="ToBinary`0" priority="0" />
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Format`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:FAES.ChamadorProcessos.ProcessCaller">
+      <Item value="FileName" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.File">
+      <Item value="Exists`0" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.FileInfo">
+      <Item value="DirectoryName" priority="2" />
+      <Item value="Exists" priority="2" />
+      <Item value="IsReadOnly" priority="1" />
+      <Item value="SetAccessControl`0" priority="0" />
+      <Item value="FullName" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Security.AccessControl.FileSecurity">
+      <Item value="SetAccessRule`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.OpenFileDialog">
+      <Item value="ShowDialog`0" priority="0" />
+      <Item value="FileName" priority="1" />
+      <Item value="InitialDirectory" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.Button">
+      <Item value="DialogResult" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.ComponentModel.CancelEventArgs">
+      <Item value="Cancel" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

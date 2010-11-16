@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="TagMp3Saito">
+</Property><Property Name="Solution File" Value="E:\!Projetos\TagMp3Saito\TagMp3Saito\TagMp3Saito.sln">
+</Property><Property Name="Date" Value="sábado, 13 de novembro de 2010">
+</Property><Property Name="Time" Value="12:59">
+</Property></Properties><Event ErrorLevel="0" Project="TagMp3Saito" Source="TagMp3Saito\TagMp3Saito.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TagMp3Saito" Source="TagMp3Saito\TagMp3Saito.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TagMp3Saito_TestProject" Source="TagMp3SaitoTestProject\TagMp3Saito_TestProject.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TagMp3Saito_TestProject" Source="TagMp3SaitoTestProject\TagMp3Saito_TestProject.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TagMp3Saito_WindowsFormsApplication" Source="TagMp3Saito_WindowsFormsApplication\TagMp3Saito_WindowsFormsApplication.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TagMp3Saito_WindowsFormsApplication" Source="TagMp3Saito_WindowsFormsApplication\TagMp3Saito_WindowsFormsApplication.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="TagMp3Saito.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="TagMp3Saito.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TagMp3Saito" Source="TagMp3Saito\TagMp3Saito.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="3" Project="" Source="LocalTestRun.testrunconfig" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="LocalTestRun.testrunconfig" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="3" Project="" Source="TagMp3Saito.vsmdi" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="TagMp3Saito.vsmdi" Description="The file was converted to the current format.">
+</Event><Event ErrorLevel="0" Project="TagMp3Saito_TestProject" Source="TagMp3SaitoTestProject\TagMp3Saito_TestProject.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="TagMp3Saito_WindowsFormsApplication" Source="TagMp3Saito_WindowsFormsApplication\TagMp3Saito_WindowsFormsApplication.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

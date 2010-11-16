@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{91EF1445-4029-4DE6-9E65-B4B4D9FA4011}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		TagMp3Saito.vsmdi = TagMp3Saito.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagMp3Saito", "TagMp3Saito\TagMp3Saito.csproj", "{9630E41D-987C-4FFC-ADE1-5D1BC78CC287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagMp3Saito_TestProject", "TagMp3SaitoTestProject\TagMp3Saito_TestProject.csproj", "{D1EF3D7E-BB47-4E99-9934-F928EA4157A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagMp3Saito_WindowsFormsApplication", "TagMp3Saito_WindowsFormsApplication\TagMp3Saito_WindowsFormsApplication.csproj", "{D58C7241-1CDA-41B3-ACA4-A593903F1E9C}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TagMp3Saito_Setup", "TagMp3Saito_Setup\TagMp3Saito_Setup.vdproj", "{BD565A3C-2FF0-4475-985E-2B9C50044610}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs07
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TagMp3Saito\\TagMp3Saito.csproj
+		SccProjectName1 = TagMp3Saito
+		SccLocalPath1 = TagMp3Saito
+		SccProjectUniqueName2 = TagMp3SaitoTestProject\\TagMp3Saito_TestProject.csproj
+		SccProjectName2 = TagMp3SaitoTestProject
+		SccLocalPath2 = TagMp3SaitoTestProject
+		SccProjectUniqueName3 = TagMp3Saito_WindowsFormsApplication\\TagMp3Saito_WindowsFormsApplication.csproj
+		SccProjectName3 = TagMp3Saito_WindowsFormsApplication
+		SccLocalPath3 = TagMp3Saito_WindowsFormsApplication
+		SccProjectUniqueName4 = TagMp3Saito_Setup\\TagMp3Saito_Setup.vdproj
+		SccProjectName4 = TagMp3Saito_Setup
+		SccLocalPath4 = TagMp3Saito_Setup
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = TagMp3Saito.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9630E41D-987C-4FFC-ADE1-5D1BC78CC287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9630E41D-987C-4FFC-ADE1-5D1BC78CC287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9630E41D-987C-4FFC-ADE1-5D1BC78CC287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9630E41D-987C-4FFC-ADE1-5D1BC78CC287}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1EF3D7E-BB47-4E99-9934-F928EA4157A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1EF3D7E-BB47-4E99-9934-F928EA4157A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1EF3D7E-BB47-4E99-9934-F928EA4157A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1EF3D7E-BB47-4E99-9934-F928EA4157A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D58C7241-1CDA-41B3-ACA4-A593903F1E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D58C7241-1CDA-41B3-ACA4-A593903F1E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D58C7241-1CDA-41B3-ACA4-A593903F1E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D58C7241-1CDA-41B3-ACA4-A593903F1E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD565A3C-2FF0-4475-985E-2B9C50044610}.Debug|Any CPU.ActiveCfg = Debug
+		{BD565A3C-2FF0-4475-985E-2B9C50044610}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
