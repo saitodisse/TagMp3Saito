@@ -242,10 +242,7 @@ namespace TagMp3Saito
                 else
                     return null;
             }
-            set
-            {
-                IdTag2.Subtitle = value;
-            }
+            set { IdTag2.Subtitle = value; }
         }
 
         #endregion

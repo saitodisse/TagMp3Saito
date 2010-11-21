@@ -60,7 +60,7 @@ namespace TagMp3Saito_WindowsFormsApplication
         {
             set
             {
-                var log = new FrmLog { LogMesage = value };
+                var log = new FrmLog {LogMesage = value};
                 log.ShowDialog();
             }
         }
@@ -75,13 +75,13 @@ namespace TagMp3Saito_WindowsFormsApplication
         private void Form1_Load(object sender, EventArgs e)
         {
             musicLoader = new MusicLoader();
-            iForm = (IFormComunicator)Wrapper.Create(typeof(IFormComunicator), this);
+            iForm = (IFormComunicator) Wrapper.Create(typeof (IFormComunicator), this);
         }
 
         private void GetNewCSVFile()
         {
             textBox_CSV_FilePath.Text = Path.Combine(Path.GetTempPath(),
-                                             "__TagMp3Saito_Temp_CSV_" + StringTools.Get_Date_Hour() + ".txt");
+                                                     "__TagMp3Saito_Temp_CSV_" + StringTools.Get_Date_Hour() + ".txt");
         }
 
         private void btnDrop_DragOver(object sender, DragEventArgs e)
@@ -143,7 +143,7 @@ namespace TagMp3Saito_WindowsFormsApplication
 
             musicLoader.Sources = new List<string>();
 
-            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
             foreach (string file in files)
                 musicLoader.Sources.Add(file);
 
@@ -199,7 +199,7 @@ namespace TagMp3Saito_WindowsFormsApplication
 
         private void OpenExcel_CsvFile()
         {
-            var proc = new ProcessCaller(this) { FileName = GetExcelFileName() };
+            var proc = new ProcessCaller(this) {FileName = GetExcelFileName()};
 
             if (proc.FileName.Length == 0)
                 return;
@@ -353,7 +353,7 @@ namespace TagMp3Saito_WindowsFormsApplication
 
         private void buttonOpenTxt_Click(object sender, EventArgs e)
         {
-            if(!File.Exists(textBox_CSV_FilePath.Text))
+            if (!File.Exists(textBox_CSV_FilePath.Text))
                 return;
 
             var p = new Process();

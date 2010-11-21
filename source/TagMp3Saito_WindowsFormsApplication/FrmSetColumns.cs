@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using System.Linq;
 
 namespace TagMp3Saito_WindowsFormsApplication
 {
@@ -26,7 +26,7 @@ namespace TagMp3Saito_WindowsFormsApplication
             var doc = new XDocument();
             var root = new XElement("TagMp3Saito-Column-Config");
             string path = new DirectoryInfo(Environment.CurrentDirectory).FullName + @"\columnsConfig.xml";
-            var customList = ConfigColumn_Default();
+            List<ConfigColumn> customList = ConfigColumn_Default();
 
             if (!File.Exists(path))
             {
