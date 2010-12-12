@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using IdSharp.Tagging.ID3v1;
-using IdSharp.Tagging.ID3v2;
+using Id3Tag;
+using Id3Tag.HighLevel;
 using TagMp3Saito.ReflectHelp;
 
 namespace TagMp3Saito
@@ -14,12 +14,10 @@ namespace TagMp3Saito
         public Mp3FieldList FieldList { get; set; }
     } ;
 
+
     [Serializable]
     public class Music
     {
-        private IID3v1 IdTag1;
-        private IID3v2 IdTag2;
-
         public Music()
         {
         }
@@ -31,6 +29,9 @@ namespace TagMp3Saito
         }
 
         #region Props
+
+        protected Id3V1Tag TagV1 { get; set; }
+        protected TagContainer TagV2 { get; set; }
 
         public string FullPath { get; set; }
 
@@ -128,8 +129,7 @@ namespace TagMp3Saito
                 // try parse else dont save
                 int number = 0;
                 int.TryParse(value, out number);
-                if (number != 0)
-                    IdTag1.TrackNumber = number;
+                IdTag1.TrackNumber = number;
 
                 IdTag2.TrackNumber = value;
             }
@@ -245,12 +245,35 @@ namespace TagMp3Saito
             set { IdTag2.Subtitle = value; }
         }
 
+        public string Composer
+        {
+            get
+            {
+                if (IdTag2 != null)
+                    return IdTag2.Composer;
+                else
+                    return null;
+            }
+            set { IdTag2.Composer = value; }
+        }
+
+
         #endregion
 
         public void LoadId3Tags()
         {
-            IdTag1 = ID3v1Helper.CreateID3v1(FullPath);
-            IdTag2 = ID3v2Helper.CreateID3v2(FullPath);
+            var manager = Id3TagFactory.CreateId3TagManager();
+            var state = manager.GetTagsStatus(FullPath);
+            var id3V1TagFound = state.Id3V1TagFound;
+            var id3V2TagFound = state.Id3V2TagFound;
+
+            if(state.Id3V1TagFound)
+                TagV1 = manager.ReadV1Tag(FullPath);
+
+            if (state.Id3V2TagFound)
+                TagV2 = manager.ReadV2Tag(FullPath);
+
+
         }
 
         public void Save(Mp3FieldList fieldList)
