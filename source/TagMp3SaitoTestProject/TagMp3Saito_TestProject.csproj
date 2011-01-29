@@ -70,6 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MusicTest.cs" />
     <Compile Include="ReflectHelp\PropertiesListTest.cs" />
+    <Compile Include="TestHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSV_Files\testCsv.txt" />

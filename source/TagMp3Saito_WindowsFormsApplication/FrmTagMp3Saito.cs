@@ -60,7 +60,7 @@ namespace TagMp3Saito_WindowsFormsApplication
         {
             set
             {
-                var log = new FrmLog {LogMesage = value};
+                var log = new FrmLog { LogMesage = value };
                 log.ShowDialog();
             }
         }
@@ -75,7 +75,7 @@ namespace TagMp3Saito_WindowsFormsApplication
         private void Form1_Load(object sender, EventArgs e)
         {
             musicLoader = new MusicLoader();
-            iForm = (IFormComunicator) Wrapper.Create(typeof (IFormComunicator), this);
+            iForm = (IFormComunicator)Wrapper.Create(typeof(IFormComunicator), this);
         }
 
         private void GetNewCSVFile()
@@ -143,7 +143,7 @@ namespace TagMp3Saito_WindowsFormsApplication
 
             musicLoader.Sources = new List<string>();
 
-            var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+            var files = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string file in files)
                 musicLoader.Sources.Add(file);
 
@@ -174,20 +174,12 @@ namespace TagMp3Saito_WindowsFormsApplication
 
         private void CallExcel()
         {
-            try
-            {
-                if (!File.Exists(textBox_CSV_FilePath.Text))
-                    SaveInitialCSV();
+            if (!File.Exists(textBox_CSV_FilePath.Text))
+                SaveInitialCSV();
 
-                OpenExcel_CsvFile();
-                toolStripStatusLabel1.Text = "waiting to save updates to mp3 files";
-                btn_Load_Csv_And_Save_Mp3.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message != "no songs loaded to save the CSV")
-                    throw;
-            }
+            OpenExcel_CsvFile();
+            toolStripStatusLabel1.Text = "waiting to save updates to mp3 files";
+            btn_Load_Csv_And_Save_Mp3.Enabled = true;
         }
 
         private void SaveInitialCSV()
@@ -199,7 +191,7 @@ namespace TagMp3Saito_WindowsFormsApplication
 
         private void OpenExcel_CsvFile()
         {
-            var proc = new ProcessCaller(this) {FileName = GetExcelFileName()};
+            var proc = new ProcessCaller(this) { FileName = GetExcelFileName() };
 
             if (proc.FileName.Length == 0)
                 return;
@@ -249,62 +241,72 @@ namespace TagMp3Saito_WindowsFormsApplication
             iForm.ShowProgressBar = true;
             int countItens = 0;
 
-            var sbErrors = new StringBuilder();
             var musCsv = new MusicCsv(textBox_CSV_FilePath.Text);
 
             try
             {
-                musicList = musCsv.Load();
+                musCsv.LoadAndSave();
+                //musicList = musCsv.LoadAndSave();
             }
             catch (Exception ex)
             {
-                sbErrors.Append("<Load_Save_Work>\r\n");
-                sbErrors.Append("musicList = musCsv.Load();\r\n");
-                sbErrors.Append(ex.Message);
-                sbErrors.Append("\r\n");
-                sbErrors.Append("\t");
-                sbErrors.Append("textBox_CSV_FilePath.Text = ");
-                sbErrors.Append(textBox_CSV_FilePath.Text);
-                sbErrors.Append("\r\n");
-                sbErrors.Append("</Load_Save_Work>");
-            }
-
-            if (musicList == null)
+                ShowErrorMessage(ex);
                 return;
-
-            iForm.TotalItens = musicList.Count;
-
-            iForm.Mesage = "saving " + musicList.Count + " files...";
-
-            foreach (Music mus in musicList)
-            {
-                try
-                {
-                    mus.Save(musicList.FieldList);
-                }
-                catch (Exception ex)
-                {
-                    sbErrors.Append("<Load_Save_Work>\r\n");
-                    sbErrors.Append("mus.Save();\r\n");
-                    sbErrors.Append(ex.Message);
-                    sbErrors.Append("\r\n");
-                    sbErrors.Append("\t");
-                    sbErrors.Append("mus = ");
-                    sbErrors.Append(mus.FullPath);
-                    sbErrors.Append("\r\n");
-                    sbErrors.Append("</Load_Save_Work>\r\n");
-                }
-
-                countItens++;
-                iForm.ActualItem = countItens;
             }
-            iForm.Mesage = countItens + " saved";
 
-            if (sbErrors.Length > 0)
-                iForm.ShowError = sbErrors.ToString();
+            //iForm.TotalItens = musicList.Count;
 
+            //iForm.Mesage = "saving " + musicList.Count + " files...";
+
+            //foreach (MusicFile mus in musicList)
+            //{
+            //    try
+            //    {
+            //        mus.Save(new List<Mp3Field>()); //TODO: salvar conforme a lista de campos selecionada
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ShowErrorMessage(ex);
+            //        return;
+            //    }
+
+            //    countItens++;
+            //    iForm.ActualItem = countItens;
+            //}
+            //iForm.Mesage = countItens + " saved";
+
+            iForm.Mesage = "all itens successfully saved";
             iForm.ShowProgressBar = false;
             iForm.FinishSaving();
+        }
+
+        private void ShowErrorMessage(Exception ex)
+        {
+            var sbErrors = new StringBuilder();
+            
+            sbErrors.Append("Error");
+            sbErrors.Append("\r\n");
+            sbErrors.Append("--------------");
+            sbErrors.Append("\r\n");
+            sbErrors.Append(ex.Message);
+            sbErrors.Append("\r\n");
+            sbErrors.Append("\r\n");
+            
+            sbErrors.Append("File");
+            sbErrors.Append("\r\n");
+            sbErrors.Append("--------------");
+            sbErrors.Append("\r\n");
+            sbErrors.Append(textBox_CSV_FilePath.Text);
+            sbErrors.Append("\r\n");
+            sbErrors.Append("\r\n");
+
+            sbErrors.Append("StackTrace = ");
+            sbErrors.Append("\r\n");
+            sbErrors.Append("--------------");
+            sbErrors.Append("\r\n");
+            sbErrors.Append(ex.StackTrace);
+
+            iForm.ShowError = sbErrors.ToString();
         }
 
         private void btnConfig_Click(object sender, EventArgs e)

@@ -3,51 +3,68 @@
     <string />
     <integer />
     <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
       <setting name="SolutionAnalysisEnabled">False</setting>
     </boolean>
   </SettingsComponent>
   <RecentFiles>
     <RecentFiles>
-      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="8291" fromTop="16" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.Designer.cs" caret="10749" fromTop="16" />
       <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:StringTools.cs" caret="1323" fromTop="5" />
       <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:App.config" caret="0" fromTop="0" />
-      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/d:ReflectHelp/f:PropertiesListTest.cs" caret="704" fromTop="21" />
-      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Music.cs" caret="9021" fromTop="26" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="35" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmSetColumns.cs" caret="5293" fromTop="11" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:ID3V2TagData.cs" caret="1226" fromTop="39" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/d:PropertyListSaved/f:FieldList.xml" caret="0" fromTop="0" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/d:ReflectHelp/f:Mp3FieldList.cs" caret="1442" fromTop="38" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/d:ReflectHelp/f:Serializer.cs" caret="159" fromTop="6" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/d:filedEmEditorTemplates/f:ee_Music_Properties.txt" caret="4460" fromTop="26" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:JSONSerializer.cs" caret="326" fromTop="11" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/d:ReflectHelp/f:PropertiesListTest.cs" caret="568" fromTop="19" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmSetColumns.cs" caret="578" fromTop="16" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:M3uLoader.cs" caret="329" fromTop="12" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Mp3FieldsHelper.cs" caret="1139" fromTop="32" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:M3uLoaderTest.cs" caret="622" fromTop="15" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:TestHelpers.cs" caret="380" fromTop="13" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicTest.cs" caret="1041" fromTop="17" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicLoaderTest.cs" caret="570" fromTop="16" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicCsvTest.cs" caret="1562" fromTop="13" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.Designer.cs" caret="2697" fromTop="20" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:Program.cs" caret="434" fromTop="12" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="6086" fromTop="14" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicLoader.cs" caret="3514" fromTop="119" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Mp3Field.cs" caret="575" fromTop="18" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="29768" fromTop="0" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicFile.cs" caret="1351" fromTop="16" />
     </RecentFiles>
     <RecentEdits>
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="17" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="10" />
-      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Music.cs" caret="9021" fromTop="20" />
-      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:Music.cs" caret="9021" fromTop="16" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="21" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="21" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="24" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="20" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.Designer.cs" caret="10749" fromTop="15" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="26" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="22" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="2" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="21" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="14" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="8" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="8" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="28" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="6" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="12" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="30" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="6" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="6" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="16" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="12" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="6" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="26" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="20" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="28" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="12174" fromTop="20" />
-      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmSetColumns.cs" caret="0" fromTop="0" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:TestHelpers.cs" caret="380" fromTop="13" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicTest.cs" caret="1111" fromTop="11" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicTest.cs" caret="299" fromTop="1" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicTest.cs" caret="706" fromTop="11" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicTest.cs" caret="1111" fromTop="21" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicTest.cs" caret="633" fromTop="7" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicTest.cs" caret="1046" fromTop="17" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="9318" fromTop="20" />
+      <File id="D1EF3D7E-BB47-4E99-9934-F928EA4157A4/f:MusicCsvTest.cs" caret="1487" fromTop="24" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicLoader.cs" caret="3554" fromTop="19" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="11325" fromTop="19" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.cs" caret="11997" fromTop="17" />
+      <File id="D58C7241-1CDA-41B3-ACA4-A593903F1E9C/f:FrmTagMp3Saito.Designer.cs" caret="2697" fromTop="20" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicFile.cs" caret="2423" fromTop="4" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicFile.cs" caret="2423" fromTop="28" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicFile.cs" caret="2000" fromTop="28" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicFile.cs" caret="1494" fromTop="17" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="35741" fromTop="19" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="35741" fromTop="9" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="35741" fromTop="13" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="35741" fromTop="4" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="1143" fromTop="7" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="1027" fromTop="6" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="1300" fromTop="0" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="2858" fromTop="18" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="2858" fromTop="25" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="2858" fromTop="13" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="35829" fromTop="39" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="9654" fromTop="39" />
+      <File id="9630E41D-987C-4FFC-ADE1-5D1BC78CC287/f:MusicCsv.cs" caret="35744" fromTop="39" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -64,7 +81,7 @@
     <ItemStatistics item="Default">
       <Item value="const" priority="0" />
       <Item value="textBox_CSV_FilePath" priority="3" />
-      <Item value="public" priority="0" />
+      <Item value="public" priority="2" />
       <Item value="static" priority="0" />
       <Item value="class" priority="0" />
       <Item value="DateTime`0" priority="0" />
@@ -79,16 +96,71 @@
       <Item value="File`0" priority="5" />
       <Item value="return" priority="1" />
       <Item value="FileInfo`0" priority="2" />
-      <Item value="new" priority="5" />
+      <Item value="new" priority="16" />
       <Item value="FileInfo" priority="3" />
       <Item value="FileSecurity" priority="0" />
       <Item value="FileSystemAccessRule" priority="0" />
-      <Item value="false" priority="0" />
+      <Item value="false" priority="1" />
       <Item value="openFileDialog_CsvFile" priority="0" />
       <Item value="buttonOpenCsvFile" priority="0" />
       <Item value="e" priority="0" />
-      <Item value="if" priority="4" />
+      <Item value="if" priority="12" />
       <Item value="else" priority="0" />
+      <Item value="Utils" priority="0" />
+      <Item value="Tagging" priority="1" />
+      <Item value="ID3v2" priority="3" />
+      <Item value="Frames" priority="0" />
+      <Item value="Items" priority="0" />
+      <Item value="IID3v2`0" priority="2" />
+      <Item value="ID3v2Helper`0" priority="0" />
+      <Item value="IdSharp" priority="0" />
+      <Item value="IdTag1" priority="0" />
+      <Item value="TagV1" priority="1" />
+      <Item value="TagVersion" priority="0" />
+      <Item value="value" priority="0" />
+      <Item value="UTF8" priority="0" />
+      <Item value="TagV2" priority="0" />
+      <Item value="Text" priority="0" />
+      <Item value="Id3V24" priority="0" />
+      <Item value="ID3V2TagData" priority="0" />
+      <Item value="prop" priority="2" />
+      <Item value="string" priority="0" />
+      <Item value="List" priority="2" />
+      <Item value="Mp3Field" priority="1" />
+      <Item value="Active" priority="4" />
+      <Item value="true" priority="4" />
+      <Item value="Description" priority="3" />
+      <Item value="DetailedDescription" priority="0" />
+      <Item value="FrameType" priority="0" />
+      <Item value="IdV1_Compatible" priority="0" />
+      <Item value="Index" priority="0" />
+      <Item value="TagName" priority="1" />
+      <Item value="i" priority="1" />
+      <Item value="count" priority="0" />
+      <Item value="UrlLinkFrame`0" priority="0" />
+      <Item value="UnsynchronisedLyricFrame`0" priority="0" />
+      <Item value="MusicCDIdentifierFrame`0" priority="1" />
+      <Item value="foreach" priority="2" />
+      <Item value="mp3Field" priority="1" />
+      <Item value="Mp3FieldList`0" priority="0" />
+      <Item value="mp3FieldList" priority="0" />
+      <Item value="JSONSerializer`0" priority="0" />
+      <Item value="Mp3Field`0" priority="2" />
+      <Item value="SaveJSON`0" priority="0" />
+      <Item value="path" priority="0" />
+      <Item value="var" priority="1" />
+      <Item value="as" priority="1" />
+      <Item value="Checked" priority="0" />
+      <Item value="List&lt;Mp3Field&gt;" priority="5" />
+      <Item value="Mp3FieldsHelper`0" priority="1" />
+      <Item value="null" priority="0" />
+      <Item value="interface" priority="0" />
+      <Item value="void" priority="0" />
+      <Item value="FrameTypeString" priority="0" />
+      <Item value="MusicCsv`0" priority="0" />
+      <Item value="Mp3Fields" priority="0" />
+      <Item value="mus" priority="1" />
+      <Item value="f" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Windows.Forms.TextBox">
       <Item value="Text" priority="4" />
@@ -129,6 +201,81 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.ComponentModel.CancelEventArgs">
       <Item value="Cancel" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:IdSharp.Tagging.ID3v2.IID3v2">
+      <Item value="Composer" priority="2" />
+      <Item value="ExtendedHeader" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Id3Tag.HighLevel.TagVersion">
+      <Item value="Id3V24" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Id3Tag.HighLevel.TagContainer">
+      <Item value="FirstOrDefault`1" priority="0" />
+      <Item value="Select`2" priority="0" />
+      <Item value="GetId3V23Descriptor`0" priority="0" />
+      <Item value="SearchFrame`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Id3Tag.HighLevel.IFrame">
+      <Item value="Descriptor" priority="1" />
+      <Item value="Type" priority="0" />
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Id3Tag.HighLevel.FrameDescriptor">
+      <Item value="Id" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Id3Tag.Id3TagManager">
+      <Item value="WriteV1Tag`0" priority="0" />
+      <Item value="WriteV2Tag`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Id3Tag.Id3TagFactory">
+      <Item value="CreateId3Tag`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TagMp3Saito.ID3V2TagData">
+      <Item value="Title" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TagMp3Saito.Mp3FieldList">
+      <Item value="Add`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TagMp3Saito.Mp3Field">
+      <Item value="Description" priority="2" />
+      <Item value="Active" priority="3" />
+      <Item value="TagName" priority="6" />
+      <Item value="Valor" priority="3" />
+      <Item value="FrameTypeString" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@TagMp3Saito.JSONSerializer">
+      <Item value="JSonSerialize`1" priority="0" />
+      <Item value="JSonDeserialize`1" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.IO.StreamReader">
+      <Item value="ReadToEnd`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.CheckedListBox">
+      <Item value="Items" priority="1" />
+      <Item value="GetItemChecked`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="Add`0" priority="2" />
+      <Item value="Any`1" priority="0" />
+      <Item value="Select`2" priority="0" />
+      <Item value="FirstOrDefault`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.ItemCheckEventArgs">
+      <Item value="Index" priority="1" />
+      <Item value="NewValue" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@TagMp3Saito.Mp3FieldsHelper">
+      <Item value="GetMp3FieldsFromJSON`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Object">
+      <Item value="ToString`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:TagMp3Saito.MusicFile">
+      <Item value="Mp3Fields" priority="2" />
+      <Item value="FullPath" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
 </Configuration>

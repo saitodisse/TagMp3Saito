@@ -4,63 +4,63 @@
   <Mp3Field>
     <Index>0</Index>
     <Active>true</Active>
-    <PropName>Artist</PropName>
+    <Description>Artist</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>1</Index>
     <Active>true</Active>
-    <PropName>DiscNumber</PropName>
+    <Description>DiscNumber</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>2</Index>
     <Active>true</Active>
-    <PropName>Album</PropName>
+    <Description>Album</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>3</Index>
     <Active>true</Active>
-    <PropName>TrackNumber</PropName>
+    <Description>TrackNumber</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>4</Index>
     <Active>true</Active>
-    <PropName>Title</PropName>
+    <Description>Title</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>5</Index>
     <Active>true</Active>
-    <PropName>Genre</PropName>
+    <Description>Genre</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>6</Index>
     <Active>true</Active>
-    <PropName>Year</PropName>
+    <Description>Year</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>7</Index>
     <Active>true</Active>
-    <PropName>OriginalArtist</PropName>
+    <Description>OriginalArtist</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>8</Index>
     <Active>true</Active>
-    <PropName>
+    <Description>
       Accompaniment_ArtistAlbum
-    </PropName>
+    </Description>
   </Mp3Field>
   <Mp3Field>
     <Index>9</Index>
     <Active>true</Active>
-    <PropName>CommentOne</PropName>
+    <Description>CommentOne</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>10</Index>
     <Active>true</Active>
-    <PropName>Subtitle</PropName>
+    <Description>Subtitle</Description>
   </Mp3Field>
   <Mp3Field>
     <Index>11</Index>
     <Active>true</Active>
-    <PropName>FullPath</PropName>
+    <Description>FullPath</Description>
   </Mp3Field>
 </ArrayOfMp3Field>

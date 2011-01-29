@@ -5,25 +5,19 @@ namespace TagMp3Saito
 {
     public class MusicLoader
     {
-        #region Delegates
+        public delegate void LoadingMusicNumber_Delegate(int actual);
+        public event LoadingMusicNumber_Delegate LoadingMusicNumber;
 
-        public delegate void GetNumbetDelegate(int actual);
-
-        #endregion
 
         private readonly MusicList musics = new MusicList();
-
         private List<string> _paths;
+        public List<string> Sources { get; set; }
+
 
         public MusicLoader()
         {
-            //TODO: this is not a good pratice. See dependency injection.
             Sources = new List<string>();
         }
-
-        public List<string> Sources { get; set; }
-
-        public event GetNumbetDelegate LoadingMusicNumber;
 
         public string[] LoadPaths()
         {
@@ -124,7 +118,7 @@ namespace TagMp3Saito
                     LoadingMusicNumber(_countMusics++);
 
                 if (!musics.Exists(m => m.FullPath == path))
-                    musics.Add(new Music(path));
+                    musics.Add(new MusicFile(path, MusicCsv.GetSelectedMp3FieldsFromJSON()));
             }
             return musics;
         }

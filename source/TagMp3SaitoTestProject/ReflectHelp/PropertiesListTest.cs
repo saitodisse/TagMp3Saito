@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TagMp3Saito;
-using TagMp3Saito.ReflectHelp;
 
 namespace TagMp3SaitoTestProject
 {
@@ -15,9 +14,8 @@ namespace TagMp3SaitoTestProject
         [TestMethod]
         public void Save_Property_List()
         {
-            Mp3FieldList pl = MusicCsv.GetDefaultMp3FieldListProperties();
-            DirectoryInfo dirInfo = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent;
-            pl.Save(dirInfo.FullName + @"\TagMp3SaitoTestProject\PropertyListSaved\FieldList.xml");
+            List<Mp3Field> mp3Fields = MusicCsv.GetDefaultMp3Fields();
+            DirectoryInfo dirInfo = TestHelpers.GetTestDirectoryInfo();
         }
     }
 }

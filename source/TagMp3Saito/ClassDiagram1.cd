@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TagMp3Saito.JSONSerializer" Collapsed="true">
+    <Position X="4" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>JSONSerializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.M3uPathExtractor" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>M3uLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.Mp3Field">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAQAMAAAAAAAEAAAAAAAgAAEAAAAACEA=</HashCode>
+      <FileName>Mp3Field.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.Mp3FieldsHelper">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Mp3FieldsHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.MusicList" Collapsed="true">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MusicFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.MusicFile">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAIAIAAAAIAAAAAABAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>MusicFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.MusicCsv">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgBAAAKAAAAIAAAAAAAAIAIAAAAAAAIIAAAAAAAA=</HashCode>
+      <FileName>MusicCsv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.MusicLoader">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="TagMp3Saito.MusicLoader.LoadingMusicNumber_Delegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MusicLoader.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEDAAAAAAAAAAAAAAAQEAAAAAAAAABACAE=</HashCode>
+      <FileName>MusicLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TagMp3Saito.ReflectHelp.Serializer" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAEAAACAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ReflectHelp\Serializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

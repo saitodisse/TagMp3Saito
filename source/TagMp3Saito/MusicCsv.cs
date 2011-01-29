@@ -6,6 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Id3Tag;
+using Id3Tag.HighLevel;
+using Id3Tag.HighLevel.Id3Frame;
 using TagMp3Saito.ReflectHelp;
 
 namespace TagMp3Saito
@@ -24,7 +27,11 @@ namespace TagMp3Saito
             Path = path;
         }
 
-        public string Path { get; set; }
+        public string Path
+        {
+            get;
+            set;
+        }
 
         public void SaveCsvFile(string path)
         {
@@ -34,54 +41,61 @@ namespace TagMp3Saito
                 throw new Exception("no songs loaded to save the CSV");
 
             // ** <th> **
-            //var mp3FieldList = GetDefaultMp3FieldListProperties();
-            Mp3FieldList mp3FieldList = GetXmlConfigMp3FieldListProperties();
-            for (int i = 0; i < mp3FieldList.Count; i++)
+            var fieldJSON = GetSelectedMp3FieldsFromJSON();
+            foreach (Mp3Field pair in fieldJSON)
             {
-                Mp3Field pair = mp3FieldList[i];
                 sb.Append("=\"");
-                sb.Append(pair.PropName);
+                sb.Append(pair);
                 sb.Append("\"");
-
-                // does not include TAB for the last one
-                if (i < mp3FieldList.Count - 1)
-                    sb.Append("\t");
+                sb.Append("\t");
             }
+
+            sb.Append("=\"");
+            sb.Append("** FullPath **");
+            sb.Append("\"");
+
             sb.AppendLine();
 
             // ** <td> **
-            foreach (Music mus in _musics)
+            foreach (MusicFile mus in _musics)
             {
-                sb.Append(Mus2CsvLine(mus, mp3FieldList, "=\"", "\"", "\t", EncoderForCsv));
+                sb.Append(Mus2CsvLine(mus, "=\"", "\"", "\t", EncoderForCsv));
                 sb.AppendLine();
             }
 
-            ////Encode special characters
             var fileWriter = new StreamWriter(path, false, Encoding.Unicode);
             fileWriter.Write(sb.ToString());
             fileWriter.Flush();
             fileWriter.Close();
         }
 
-        private string Mus2CsvLine(Music mus, Mp3FieldList mp3FieldList, string startWith, string endWith,
+        private string Mus2CsvLine(MusicFile mus, string startWith, string endWith,
                                    string separator, Func<string, string> encoderForCsv)
         {
             var sb = new StringBuilder();
-            foreach (Mp3Field field in mp3FieldList)
+            foreach (Mp3Field fieldJSON in GetSelectedMp3FieldsFromJSON())
             {
                 sb.Append(startWith);
-                object value = mus.GetType().GetProperties().Where(p => p.Name == field.PropName).Single().GetValue(
-                    mus, null);
-                if (value != null)
-                {
-                    if (field.PropName == "CommentOne")
-                        sb.Append(EncoderForCsv(value.ToString()));
-                    else
-                        sb.Append(value);
-                }
+
+                // para campos de observação
+                if (fieldJSON.TagName == "XXXXXXX")
+                    sb.Append(EncoderForCsv(fieldJSON.Valor.ToString()));
+
+                // se o campo do JSON exitir na lista da musica
+                else if (mus.Mp3Fields.Any(f => f.TagName == fieldJSON.TagName))
+                    sb.Append(mus.Mp3Fields.FirstOrDefault(f => f.TagName == fieldJSON.TagName).Valor);
+
+                else
+                    sb.Append("");
+
                 sb.Append(endWith);
                 sb.Append(separator);
             }
+
+            sb.Append(startWith);
+            sb.Append(mus.FullPath);
+            sb.Append(endWith);
+
             return sb.ToString();
         }
 
@@ -105,32 +119,23 @@ namespace TagMp3Saito
             return sb.ToString();
         }
 
-        /// <summary>
-        /// The first line contains the properties
-        /// </summary>
-        /// <returns></returns>
-        public MusicList Load()
+        public void LoadAndSave()
         {
             if (!File.Exists(Path))
-                return null;
+                return;
 
-            _musics = new MusicList();
+            //_musics = new MusicList();
             var sr = new StreamReader(Path);
             string row;
             string[] columns;
 
             // See column Order with the first line
             row = sr.ReadLine();
-            Mp3FieldList mp3FieldList = GetColumns(row, "\t");
+            List<Mp3Field> mp3Fields = GetFirstLineColumns(row, "\t");
 
-            // Get "FullPath"
-            if (mp3FieldList.Where(p => p.PropName == "FullPath").Count() == 0)
-                throw new Exception("The FullPath column was not found.");
-            int fullPathIndex = mp3FieldList.Where(p => p.PropName == "FullPath").Single().Index;
+            int fullPathIndex = mp3Fields.Count;
 
-            _musics.FieldList = mp3FieldList;
-
-            Music mus;
+            MusicFile mus;
             while ((row = sr.ReadLine()) != null)
             {
                 //Clean the crap at the start and the end of each column
@@ -140,94 +145,911 @@ namespace TagMp3Saito
                 columns = row.Split('\t');
 
                 // Load Mp3 File
-                mus = new Music();
+                mus = new MusicFile();
 
+                // Call constructor passing FullPath and the default fields configuration
+                var OLD_FILE = columns[fullPathIndex];
                 mus.GetType().GetProperties().Where(p => p.Name == "FullPath").Single().SetValue(mus,
-                                                                                                 columns[fullPathIndex],
+                                                                                                 OLD_FILE,
                                                                                                  null);
-                mus.LoadId3Tags();
+                //????
+                //mus.LoadId3Tags(mp3Fields);
 
                 // Set each Property
-                for (int i = 0; i < mp3FieldList.Count; i++)
-                {
-                    if (mp3FieldList[i].PropName == "CommentOne")
-                        columns[i] = DecoderFromCsv(columns[i]);
+                var id3TagManager = new Id3TagManager();
+                id3TagManager.RemoveV1Tag(OLD_FILE);
+                id3TagManager.RemoveV2Tag(OLD_FILE);
 
-                    PropertyInfo[] props = mus.GetType().GetProperties();
-                    IEnumerable<PropertyInfo> prop1 = props.Where(p => p.Name == mp3FieldList[i].PropName);
-                    PropertyInfo prop11 = prop1.SingleOrDefault();
-                    prop11.SetValue(mus, columns[i], null);
-                }
+                //id3TagManager.WriteV2Tag(columns[fullPathIndex], CreateTagContainer(mp3Fields, columns));
 
-                _musics.Add(mus);
+
+                //Save in a new file
+                var NEW_FILE = OLD_FILE + ".aux";
+
+                Id3TagFactory.CreateId3TagManager().WriteV2Tag(
+                    OLD_FILE,
+                    NEW_FILE, 
+                    CreateTagContainer(mp3Fields, columns));
+
+                
+                
+                var oldFile = new FileInfo(OLD_FILE);
+                var newFile = new FileInfo(NEW_FILE);
+                
+                //Delete OldFile
+                oldFile.Delete();
+                //and Rename New to Old
+                newFile.MoveTo(OLD_FILE);
+
+                //Id3TagFactory.CreateId3TagManager().WriteV2Tag(columns[fullPathIndex], tagContainer);
+
+                //if (mp3Fields[i].Description == "CommentOne")
+                //    columns[i] = DecoderFromCsv(columns[i]);
+
+
+                //_musics.Add(mus);
             }
 
             sr.Close();
 
-            return _musics;
+            //return _musics;
         }
 
-        private static Mp3FieldList GetColumns(string row, string sep)
+        private TagContainer CreateTagContainer(List<Mp3Field> mp3Fields, string[] columns)
         {
-            var listaCol = new Mp3FieldList();
-            var mus = new Music();
+            TagContainer container = Id3TagFactory.CreateId3Tag(TagVersion.Id3V23);
+            //if (data.Version == TagVersion.Id3V23)
+            //{
+            //
+            //  Configure the ID3v2.3 header
+            //
+            TagDescriptorV3 extendedHeaderV23 = container.GetId3V23Descriptor();
+            // Configure the tag header.
+            extendedHeaderV23.SetHeaderOptions(false, false, false);
+            //}
+            //else
+            //{
+            //
+            //  Configure the ID3v2.4 header
+            //
+            //TagDescriptorV4 extendedHeaderV24 = container.GetId3V24Descriptor();
+            //extendedHeaderV24.SetHeaderOptions(false, false, false, true);
+            //}
+
+            for (int i = 0; i < mp3Fields.Count; i++)
+            {
+                container.Add(new TextFrame(mp3Fields[i].TagName, columns[i], Encoding.Default));
+            }
+
+            return container;
+        }
+
+
+        private static List<Mp3Field> GetFirstLineColumns(string row, string sep)
+        {
+            var listaCol = new List<Mp3Field>();
+
+            var defaultMp3Fields = GetDefaultMp3Fields();
+
+            var mus = new MusicFile();
             for (int i = 0; i < row.Split(sep.ToCharArray()[0]).Length; i++)
             {
                 string col = row.Split(sep.ToCharArray()[0])[i].Replace("=", string.Empty).Replace("\"", string.Empty);
-                listaCol.Add(new Mp3Field(true, i, col));
+
+                Regex regex = new Regex(@"^\[(.*?)\].*$");
+                string tagName = regex.Match(col).Groups[1].Value;
+
+
+
+                //find field from default list
+                var defaultMp3Field = defaultMp3Fields.SingleOrDefault(ff => ff.TagName == tagName);
+
+
+                if (defaultMp3Field == null && col == "** FullPath **")
+                    break;
+
+                if (defaultMp3Field == null && col != "** FullPath **")
+                    throw new Exception("** FullPath ** Column not found at first line, tagName founded:" + tagName);
+
+
+                //get fields from first line and deafult fields
+                var mp3Field = new Mp3Field
+                                   {
+                                       Index = i,
+                                       Active = true,
+                                       Description = defaultMp3Field.Description,
+                                       DetailedDescription = defaultMp3Field.DetailedDescription,
+                                       FrameTypeString = defaultMp3Field.FrameTypeString,
+                                       TagName = defaultMp3Field.TagName,
+                                       IdV1_Compatible = defaultMp3Field.IdV1_Compatible,
+                                   };
+
+                listaCol.Add(mp3Field);
             }
             return listaCol;
         }
 
-        public static Mp3FieldList GetDefaultMp3FieldListProperties()
+        public static List<Mp3Field> GetDefaultMp3Fields()
         {
-            var mus = new Music();
-            PropertyInfo[] pi = mus.GetType().GetProperties();
-            var pl = new Mp3FieldList();
+            var mp3Fields = new List<Mp3Field>();
 
-            string[] proptList = {
-                                     "Artist",
-                                     "DiscNumber",
-                                     "Album",
-                                     "TrackNumber",
-                                     "Title",
-                                     "Genre",
-                                     "Year",
-                                     "OriginalArtist",
-                                     "Accompaniment_ArtistAlbum",
-                                     "CommentOne",
-                                     "Subtitle",
-                                     "FullPath"
-                                 };
-
-            for (int i = 0; i < proptList.Length; i++)
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "AudioEncryptionFrame(AENC)",
+            //    DetailedDescription = "Audio Encryption Frame ",
+            //    FrameTypeString = "AudioEncryptionFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 1,
+            //    TagName = "AENC ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Comments(COMM)",
+            //    DetailedDescription = "Comments ",
+            //    FrameTypeString = "CommentFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 2,
+            //    TagName = "COMM ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "MusicCDIdentifierFrame(MCDI)",
+            //    DetailedDescription = "Music CD Identifier Frame ",
+            //    FrameTypeString = "MusicCDIdentifierFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 3,
+            //    TagName = "MCDI ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "PictureFrame(APIC)",
+            //    DetailedDescription = "Picture Frame ",
+            //    FrameTypeString = "PictureFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 4,
+            //    TagName = "APIC ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Playcounter(PCNT)",
+            //    DetailedDescription = "Play counter ",
+            //    FrameTypeString = "PlayCounterFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 5,
+            //    TagName = "PCNT ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Popularimeter(POPM)",
+            //    DetailedDescription = "Popularimeter ",
+            //    FrameTypeString = "PopularimeterFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 6,
+            //    TagName = "POPM ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "PrivateFrame(PRIV)",
+            //    DetailedDescription = "Private Frame ",
+            //    FrameTypeString = "PrivateFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 7,
+            //    TagName = "PRIV ",
+            //    Valor = null
+            //});
+            mp3Fields.Add(new Mp3Field
             {
-                string s = proptList[i];
-                pl.Add(new Mp3Field(true, i, s));
-            }
-            return pl;
+                Active = true,
+                Description = "Album_Movie_Showtitle(TALB)",
+                DetailedDescription = "Album/Movie/Show title",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 8,
+                TagName = "TALB",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "BPM(TBPM)",
+                DetailedDescription = "BPM (beats per minute)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 9,
+                TagName = "TBPM",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Composer(TCOM)",
+                DetailedDescription = "Composer",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 10,
+                TagName = "TCOM",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Contenttype(TCON)",
+                DetailedDescription = "Content type",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 11,
+                TagName = "TCON",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Copyrightmessage(TCOP)",
+                DetailedDescription = "Copyright message",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 12,
+                TagName = "TCOP",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Date(TDAT)",
+                DetailedDescription = "Date (replaced by TDRC in v2.4)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 13,
+                TagName = "TDAT",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Encodingtime(TDEN)",
+                DetailedDescription = "Encoding time",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 14,
+                TagName = "TDEN",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Playlistdelay(TDLY)",
+                DetailedDescription = "Playlist delay",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 15,
+                TagName = "TDLY",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Originalreleasetime(TDOR)",
+                DetailedDescription = "Original release time",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 16,
+                TagName = "TDOR",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Recordingtime(TDRC)",
+                DetailedDescription = "Recording time",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 17,
+                TagName = "TDRC",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Releasetime(TDRL)",
+                DetailedDescription = "Release time",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 18,
+                TagName = "TDRL",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Taggingtime(TDTG)",
+                DetailedDescription = "Tagging time",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 19,
+                TagName = "TDTG",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Encodedby(TENC)",
+                DetailedDescription = "Encoded by",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 20,
+                TagName = "TENC",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Lyricist_Textwriter(TEXT)",
+                DetailedDescription = "Lyricist/Text writer",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 21,
+                TagName = "TEXT",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Filetype(TFLT)",
+                DetailedDescription = "File type",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 22,
+                TagName = "TFLT",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Time(TIME)",
+                DetailedDescription = "Time (replaced by TDRC in v2.4)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 23,
+                TagName = "TIME",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Involvedpeoplelist(TIPL)",
+                DetailedDescription = "Involved people list",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 24,
+                TagName = "TIPL",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Contentgroupdescription(TIT1)",
+                DetailedDescription = "Content group description",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 25,
+                TagName = "TIT1",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Title_songname_contentdescription(TIT2)",
+                DetailedDescription = "Title/songname/content description",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 26,
+                TagName = "TIT2",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Subtitle_Descriptionrefinement(TIT3)",
+                DetailedDescription = "Subtitle/Description refinement",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 27,
+                TagName = "TIT3",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Initialkey(TKEY)",
+                DetailedDescription = "Initial key",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 28,
+                TagName = "TKEY",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Language(TLAN)",
+                DetailedDescription = "Language(s)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 29,
+                TagName = "TLAN",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Length(TLEN)",
+                DetailedDescription = "Length",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 30,
+                TagName = "TLEN",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Musiciancreditslist(TMCL)",
+                DetailedDescription = "Musician credits list",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 31,
+                TagName = "TMCL",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Mediatype(TMED)",
+                DetailedDescription = "Media type",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 32,
+                TagName = "TMED",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Mood(TMOO)",
+                DetailedDescription = "Mood",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 33,
+                TagName = "TMOO",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Originalalbum_movie_showtitle(TOAL)",
+                DetailedDescription = "Original album/movie/show title",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 34,
+                TagName = "TOAL",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Originalfilename(TOFN)",
+                DetailedDescription = "Original filename",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 35,
+                TagName = "TOFN",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Originallyricist_textwriter(TOLY)",
+                DetailedDescription = "Original lyricist(s)/text writer(s)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 36,
+                TagName = "TOLY",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Originalartist_performer(TOPE)",
+                DetailedDescription = "Original artist(s)/performer(s)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 37,
+                TagName = "TOPE",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Originalreleaseyear(TORY)",
+                DetailedDescription = "Original release year (replaced by TDOR in v2.4)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 38,
+                TagName = "TORY",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Fileowner_licensee(TOWN)",
+                DetailedDescription = "File owner/licensee",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 39,
+                TagName = "TOWN",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Leadperformer_Soloist(TPE1)",
+                DetailedDescription = "Lead performer(s)/Soloist(s)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 40,
+                TagName = "TPE1",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Band_orchestra_accompaniment(TPE2)",
+                DetailedDescription = "Band/orchestra/accompaniment",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 41,
+                TagName = "TPE2",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Conductor_performerrefinement(TPE3)",
+                DetailedDescription = "Conductor/performer refinement",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 42,
+                TagName = "TPE3",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Interpreted_remixed(TPE4)",
+                DetailedDescription = "Interpreted, remixed, or otherwise modified by",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 43,
+                TagName = "TPE4",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Partofaset(TPOS)",
+                DetailedDescription = "Part of a set",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 44,
+                TagName = "TPOS",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Producednotice(TPRO)",
+                DetailedDescription = "Produced notice",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 45,
+                TagName = "TPRO",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Publisher(TPUB)",
+                DetailedDescription = "Publisher",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 46,
+                TagName = "TPUB",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Tracknumber_Positioninset(TRCK)",
+                DetailedDescription = "Track number/Position in set",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 47,
+                TagName = "TRCK",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Recordingdates(TRDA)",
+                DetailedDescription = "Recording dates (replaced by TDRC in v2.4)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 48,
+                TagName = "TRDA",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Internetradiostationname(TRSN)",
+                DetailedDescription = "Internet radio station name",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 49,
+                TagName = "TRSN",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Internetradiostationowner(TRSO)",
+                DetailedDescription = "Internet radio station owner",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 50,
+                TagName = "TRSO",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Size(TSIZ)",
+                DetailedDescription = "Size (deprecated in v2.4)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 51,
+                TagName = "TSIZ",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Albumsortorder(TSOA)",
+                DetailedDescription = "Album sort order",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 52,
+                TagName = "TSOA",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Performersortorder(TSOP)",
+                DetailedDescription = "Performer sort order",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 53,
+                TagName = "TSOP",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Titlesortorder(TSOT)",
+                DetailedDescription = "Title sort order",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 54,
+                TagName = "TSOT",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "ISRC(TSRC)",
+                DetailedDescription = "ISRC (international standard recording code)",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 55,
+                TagName = "TSRC",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Software_HardEnc(TSSE)",
+                DetailedDescription = "Software/Hardware and settings used for encoding",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 56,
+                TagName = "TSSE",
+                Valor = null
+            });
+            mp3Fields.Add(new Mp3Field
+            {
+                Active = true,
+                Description = "Setsubtitle(TSST)",
+                DetailedDescription = "Set subtitle",
+                FrameTypeString = "TextFrame",
+                IdV1_Compatible = false,
+                Index = 57,
+                TagName = "TSST",
+                Valor = null
+            });
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Uniquefileidentifier(UFID)",
+            //    DetailedDescription = "Unique file identifier ",
+            //    FrameTypeString = "UniqueFileIdentifierFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 58,
+            //    TagName = "UFID ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Unsychronizedlyric_texttranscription(USLT)",
+            //    DetailedDescription = "Unsychronized lyric/text transcription ",
+            //    FrameTypeString = "UnsynchronisedLyricFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 59,
+            //    TagName = "USLT ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Commercialinformation(WCOM)",
+            //    DetailedDescription = "Commercial information",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 60,
+            //    TagName = "WCOM",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Copyright_Legalinformation(WCOP)",
+            //    DetailedDescription = "Copyright/Legal information",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 61,
+            //    TagName = "WCOP",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Officialaudiofilewebpage(WOAF)",
+            //    DetailedDescription = "Official audio file webpage",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 62,
+            //    TagName = "WOAF",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Officialartist_performerwebpage(WOAR)",
+            //    DetailedDescription = "Official artist/performer webpage",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 63,
+            //    TagName = "WOAR",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Officialaudiosourcewebpage(WOAS)",
+            //    DetailedDescription = "Official audio source webpage",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 64,
+            //    TagName = "WOAS",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Officialinternetradiostationhomepage(WORS)",
+            //    DetailedDescription = "Official internet radio station homepage",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 65,
+            //    TagName = "WORS",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Payment(WPAY)",
+            //    DetailedDescription = "Payment",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 66,
+            //    TagName = "WPAY",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "Publishersofficialwebpage(WPUB)",
+            //    DetailedDescription = "Publishers official webpage",
+            //    FrameTypeString = "UrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 67,
+            //    TagName = "WPUB",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "UserdefinedText(TUserDefinedTextFrame	TXXX 	User defined Text 	UserdefinedText(TXXX))",
+            //    DetailedDescription = "User defined Text ",
+            //    FrameTypeString = "UserDefinedTextFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 68,
+            //    TagName = "TUserDefinedTextFrame	TXXX 	User defined Text 	UserdefinedText(TXXX) ",
+            //    Valor = null
+            //});
+            //mp3Fields.Add(new Mp3Field
+            //{
+            //    Active = true,
+            //    Description = "UserURLs(WUserDefinedUrlLinkFrame	WXXX 	User URLs 	UserURLs(WXXX))",
+            //    DetailedDescription = "User URLs ",
+            //    FrameTypeString = "UserDefinedUrlLinkFrame",
+            //    IdV1_Compatible = false,
+            //    Index = 69,
+            //    TagName = "WUserDefinedUrlLinkFrame	WXXX 	User URLs 	UserURLs(WXXX) ",
+            //    Valor = null
+            //});
+
+            return mp3Fields;
         }
 
-        public static Mp3FieldList GetXmlConfigMp3FieldListProperties()
+        public static List<Mp3Field> GetSelectedMp3FieldsFromJSON()
         {
-            var mus = new Music();
-            PropertyInfo[] pi = mus.GetType().GetProperties();
-            var pl = new Mp3FieldList();
+            var pl = new List<Mp3Field>();
 
-            string path = new DirectoryInfo(Environment.CurrentDirectory).FullName + @"\columnsConfig.xml";
+            string path = new DirectoryInfo(Environment.CurrentDirectory).FullName + @"\columnsConfig.json";
             if (!File.Exists(path))
-                return GetDefaultMp3FieldListProperties();
+                return GetDefaultMp3Fields();
 
-            XDocument doc = XDocument.Load(path);
+            var mp3Fields = Mp3FieldsHelper.GetMp3FieldsFromJSON(null);
 
-            foreach (XElement ele in doc.Elements("TagMp3Saito-Column-Config").Descendants())
+            foreach (var ele in mp3Fields)
             {
-                int count = 0;
-                if (Convert.ToBoolean(ele.Attribute("show").Value))
-                {
-                    pl.Add(new Mp3Field(true, count, ele.Name.ToString()));
-                    count++;
-                }
+                if (Convert.ToBoolean(ele.Active))
+                    pl.Add(ele);
             }
             return pl;
         }
