@@ -155,10 +155,21 @@ namespace TagMp3Saito
                 //????
                 //mus.LoadId3Tags(mp3Fields);
 
+                if (!File.Exists(OLD_FILE))
+                    continue;
+
                 // Set each Property
                 var id3TagManager = new Id3TagManager();
-                id3TagManager.RemoveV1Tag(OLD_FILE);
-                id3TagManager.RemoveV2Tag(OLD_FILE);
+
+                var tagsStatus = id3TagManager.GetTagsStatus(OLD_FILE);
+                if (tagsStatus.Id3V1TagFound)
+                {
+                    id3TagManager.RemoveV1Tag(OLD_FILE);
+                }
+                if (tagsStatus.Id3V2TagFound)
+                {
+                    id3TagManager.RemoveV2Tag(OLD_FILE);
+                }
 
                 //id3TagManager.WriteV2Tag(columns[fullPathIndex], CreateTagContainer(mp3Fields, columns));
 
